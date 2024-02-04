@@ -6,7 +6,15 @@ import BoxContainer from "../../../components/boxContainer/BoxContainer";
 
 import { signInSchema, signInFormDataType } from "../validation/authSchemas";
 
+import { useLoginUser } from "../api/loginUser";
+
 const LoginForm = () => {
+  const { login, isPending } = useLoginUser();
+
+  const handleLogin = (credentials: signInFormDataType) => {
+    login(credentials);
+  };
+
   return (
     <BoxContainer className="w-full max-w-lg">
       <div className="py-4">
@@ -17,9 +25,7 @@ const LoginForm = () => {
 
       <Form<signInFormDataType, typeof signInSchema>
         schema={signInSchema}
-        onSubmit={(data) => {
-          console.log(data);
-        }}
+        onSubmit={handleLogin}
         className="flex flex-col gap-5"
       >
         {({ register, formState: { errors } }) => (
@@ -30,6 +36,7 @@ const LoginForm = () => {
                 placeholder="name@company.com"
                 registration={register("email")}
                 error={errors.email}
+                disabled={isPending}
               />
 
               <FormTextField
@@ -38,11 +45,23 @@ const LoginForm = () => {
                 placeholder="••••••••"
                 registration={register("password")}
                 error={errors.password}
+                disabled={isPending}
               />
             </div>
 
-            <button type="submit" className="btn btn-primary">
-              Sign in
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <>
+                  <span className="loading loading-spinner"></span>
+                  Signin in...
+                </>
+              ) : (
+                "Sign in"
+              )}
             </button>
 
             <p className="text-sm font-light text-gray-500">
