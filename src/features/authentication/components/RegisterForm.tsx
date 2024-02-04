@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom";
-
 import { Form } from "../../../components/form/Form";
 import FormTextField from "../../../components/formTextField/FormTextField";
 import BoxContainer from "../../../components/boxContainer/BoxContainer";
 
 import { signUpFormDataType, signUpSchema } from "../validation/authSchemas";
 
+import { useRegisterUser } from "../api/registerUser";
+
 const RegisterForm = () => {
+  const { register, isPending } = useRegisterUser();
+
+  const handleRegister = ({ email, password }: signUpFormDataType) => {
+    register({ email, password });
+  };
+
   return (
     <BoxContainer className="w-full max-w-lg">
       <div className="py-4">
@@ -15,9 +22,7 @@ const RegisterForm = () => {
 
       <Form<signUpFormDataType, typeof signUpSchema>
         schema={signUpSchema}
-        onSubmit={(data) => {
-          console.log(data);
-        }}
+        onSubmit={handleRegister}
         className="flex flex-col gap-5"
       >
         {({ register, formState: { errors } }) => (
@@ -28,6 +33,7 @@ const RegisterForm = () => {
                 placeholder="name@company.com"
                 registration={register("email")}
                 error={errors.email}
+                disabled={isPending}
               />
 
               <FormTextField
@@ -36,6 +42,7 @@ const RegisterForm = () => {
                 placeholder="••••••••"
                 registration={register("password")}
                 error={errors.password}
+                disabled={isPending}
               />
 
               <FormTextField
@@ -44,11 +51,23 @@ const RegisterForm = () => {
                 placeholder="••••••••"
                 registration={register("confirmPassword")}
                 error={errors.confirmPassword}
+                disabled={isPending}
               />
             </div>
 
-            <button type="submit" className="btn btn-primary">
-              Create an account
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <>
+                  <span className="loading loading-spinner"></span>
+                  Creating account...
+                </>
+              ) : (
+                "Create an account"
+              )}
             </button>
 
             <p className="text-sm font-light text-gray-500">
