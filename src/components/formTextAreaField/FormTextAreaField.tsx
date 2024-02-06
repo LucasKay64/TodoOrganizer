@@ -7,35 +7,26 @@ import { UseFormRegisterReturn } from "react-hook-form";
 
 import { cn } from "../../utils/utils";
 
-interface FormTextFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+interface FormTextAreaFieldProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     FormFieldWrapperPropsWithoutChildren {
-  type?:
-    | "text"
-    | "email"
-    | "password"
-    | "number"
-    | "tel"
-    | "time"
-    | "search"
-    | "url";
   registration: UseFormRegisterReturn;
 }
 
-const FormTextField = ({
+const FormTextAreaField = ({
   className,
-  type = "text",
   label,
   registration, // this has to be extracted from the props beacause it spreads its own props
   error,
   ...props
-}: FormTextFieldProps) => {
+}: FormTextAreaFieldProps) => {
   return (
     <FormFieldWrapper label={label} error={error}>
-      <input
-        type={type}
+      <textarea
         className={cn(
-          `input input-bordered w-full ${error?.message ? "input-error" : ""}`,
+          `textarea textarea-bordered w-full ${
+            error?.message ? "textarea-error" : ""
+          }`,
           className
         )}
         {...registration}
@@ -45,4 +36,4 @@ const FormTextField = ({
   );
 };
 
-export default FormTextField;
+export default FormTextAreaField;
