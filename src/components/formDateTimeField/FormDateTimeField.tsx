@@ -4,7 +4,7 @@ import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { Controller } from "react-hook-form";
-import { Control, FieldValues, Path } from "react-hook-form";
+import { Control, FieldValues, Path, PathValue } from "react-hook-form";
 
 import { cn } from "../../utils/utils";
 
@@ -12,6 +12,7 @@ interface FormDateTimeFieldProps<TFormValues extends FieldValues>
   extends Omit<ReactDatePickerProps, "onChange">,
     FormFieldWrapperPropsWithoutChildren {
   fieldName: Path<TFormValues>;
+  defaultValue?: PathValue<TFormValues, Path<TFormValues>>;
   control: Control<TFormValues>;
 }
 
@@ -21,6 +22,7 @@ const FormDateTimeField = <TFormValues extends FieldValues>({
   error,
   control,
   fieldName,
+  defaultValue,
   ...props
 }: FormDateTimeFieldProps<TFormValues>) => {
   return (
@@ -28,6 +30,7 @@ const FormDateTimeField = <TFormValues extends FieldValues>({
       <Controller
         name={fieldName}
         control={control}
+        defaultValue={defaultValue}
         render={({ field: { onChange, onBlur, value } }) => (
           <DatePicker
             selected={value}

@@ -1,7 +1,15 @@
 import EditIcon from "../../../assets/icons/edit-icon.svg";
 import DeleteIcon from "../../../assets/icons/delete-icon.svg";
+import Modal from "../../../components/modal/Modal";
+import { useRef } from "react";
 
 const Todo = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  const handleOpenModal = () => {
+    modalRef.current?.showModal();
+  };
+
   return (
     <>
       <div className="flex items-center">
@@ -16,7 +24,10 @@ const Todo = () => {
         <span className="text-sm font-light text-gray-400">Due on 4/1/23</span>
 
         <div>
-          <button className="btn btn-ghost btn-circle">
+          <button
+            className="btn btn-ghost btn-circle"
+            onClick={handleOpenModal}
+          >
             <img src={EditIcon} alt="Edit Icon" className="w-5 h-5" />
           </button>
 
@@ -32,6 +43,10 @@ const Todo = () => {
       </p>
 
       <div className="divider"></div>
+
+      <Modal id="editTodo" title="Edit Todo" ref={modalRef}>
+        asd
+      </Modal>
     </>
   );
 };

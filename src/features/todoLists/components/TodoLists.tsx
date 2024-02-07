@@ -2,15 +2,39 @@ import plusIcon from "../../../assets/icons/plus-icon.svg";
 import TodoListsItem from "./TodoListsItem";
 import Modal from "../../../components/modal/Modal";
 import AddTodoListForm from "./AddTodoListForm";
+import toast from "react-hot-toast";
+import ErrorMessage from "../../../components/errorMessage/ErrorMessage";
+
+import { useGetTodoLists } from "../api/getTodoLists";
 
 import { useRef } from "react";
 
 const TodoLists = () => {
+  const { todoLists, isPending, error } = useGetTodoLists();
+
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const handleOpenModal = () => {
     modalRef.current?.showModal();
   };
+
+  if (isPending)
+    return (
+      <div className="w-80 h-screen flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+
+  if (error) {
+    toast.error("Something went wrong. Try restarting the app.");
+    return (
+      <div className="w-80 h-screen flex justify-center items-center">
+        <ErrorMessage
+          message={"Something went wrong. Try restarting the app."}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -28,12 +52,13 @@ const TodoLists = () => {
             />
           </button>
         </h1>
-        <TodoListsItem />
-        <TodoListsItem />
-        <TodoListsItem />
+
+        {todoLists?.map(({ id, title }) => (
+          <TodoListsItem key={id} id={id} title={title} />
+        ))}
       </ul>
 
-      <Modal id="my_modal_3" title="Add a new Todo list" ref={modalRef}>
+      <Modal id="addTotoList" title="Add a new Todo list" ref={modalRef}>
         <AddTodoListForm />
       </Modal>
     </>

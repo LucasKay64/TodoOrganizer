@@ -53,7 +53,7 @@ const TodoListDetails = () => {
         <img src={PlusIconWhite} alt="Plus Icon" className="h-12 w-12" />
       </button>
 
-      <Modal id="addTodoModal" title="Add a new Todo" ref={modalRef}>
+      <Modal id="addTodo" title="Add a new Todo" ref={modalRef}>
         <AddTodoForm />
       </Modal>
     </>

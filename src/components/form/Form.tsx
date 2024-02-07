@@ -36,6 +36,7 @@ const Form = <
   id,
   children,
   defaultValues,
+  ...props
 }: FormProps<TFormValues, Schema>) => {
   const methods = useForm<TFormValues>({
     resolver: schema ? yupResolver(schema) : undefined,
@@ -50,11 +51,18 @@ const Form = <
     methods.reset(defaultValues);
   }, [defaultValues, methods]);
 
+  useEffect(() => {
+    if (methods.formState.isSubmitSuccessful) {
+      methods.reset();
+    }
+  }, [methods.formState, methods]);
+
   return (
     <form
       className={className}
       onSubmit={methods.handleSubmit(onSubmit)}
       id={id}
+      {...props}
     >
       {children(methods)}
     </form>

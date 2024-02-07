@@ -6,9 +6,13 @@ import {
   addTodoListSchema,
 } from "../validation/TodoListSchemas";
 
+import { useCreateTodoList } from "../api/createTodoList";
+
 const AddTodoListForm = () => {
+  const { createList, isPending } = useCreateTodoList();
+
   const handleAddTodoList = ({ title }: addTodoListFormDataType) => {
-    console.log(title);
+    createList(title);
   };
 
   return (
@@ -24,10 +28,22 @@ const AddTodoListForm = () => {
             placeholder="Enter list title"
             registration={register("title")}
             error={errors.title}
+            disabled={isPending}
           />
 
-          <button type="submit" className="btn btn-primary">
-            Add List
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isPending}
+          >
+            {isPending ? (
+              <>
+                <span className="loading loading-spinner"></span>
+                Adding todo list...
+              </>
+            ) : (
+              "Add"
+            )}
           </button>
         </>
       )}
