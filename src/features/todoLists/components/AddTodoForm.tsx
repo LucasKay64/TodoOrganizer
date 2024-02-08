@@ -5,13 +5,24 @@ import FormDateTimeField from "../../../components/formDateTimeField/FormDateTim
 
 import { addTodoSchema, addTodoFormDataType } from "../validation/TodoSchemas";
 
+import { useCreateTodo } from "../api/createTodo";
+import { useParams } from "react-router-dom";
+
 const AddTodoForm = () => {
+  const { id } = useParams();
+  const { createTodo, isPending } = useCreateTodo();
+
   const handleAddTodo = ({
     title,
     description,
     dueDateTime,
   }: addTodoFormDataType) => {
-    console.log(title, description, dueDateTime);
+    createTodo({
+      title,
+      description,
+      dueDateTime: dueDateTime.toISOString(),
+      todoListId: Number(id),
+    });
   };
 
   return (
@@ -27,6 +38,7 @@ const AddTodoForm = () => {
             placeholder="Enter todo title"
             registration={register("title")}
             error={errors.title}
+            disabled={isPending}
           />
 
           <FormTextAreaField
@@ -34,6 +46,7 @@ const AddTodoForm = () => {
             placeholder="Enter description"
             registration={register("description")}
             error={errors.description}
+            disabled={isPending}
           />
 
           <FormDateTimeField
@@ -42,10 +55,22 @@ const AddTodoForm = () => {
             error={errors.dueDateTime}
             control={control}
             placeholderText="dd/MM/yyyy h:mm aa"
+            disabled={isPending}
           />
 
-          <button type="submit" className="btn btn-primary">
-            Add Todo
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isPending}
+          >
+            {isPending ? (
+              <>
+                <span className="loading loading-spinner"></span>
+                Adding todo...
+              </>
+            ) : (
+              "Add"
+            )}
           </button>
         </>
       )}

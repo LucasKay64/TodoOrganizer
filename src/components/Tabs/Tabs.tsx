@@ -22,9 +22,10 @@ const Tabs = ({ children, name }: TabsProps) => {
 interface TabProps {
   label: string;
   children: React.ReactNode;
+  defaultSelected?: boolean;
 }
 
-const Tab = ({ children, label }: TabProps) => {
+const Tab = ({ children, label, defaultSelected = false }: TabProps) => {
   const { name } = useContext(TabsContext);
 
   return (
@@ -35,7 +36,7 @@ const Tab = ({ children, label }: TabProps) => {
         role="tab"
         className="tab"
         aria-label={label}
-        defaultChecked
+        defaultChecked={defaultSelected}
       />
       <div
         role="tabpanel"

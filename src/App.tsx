@@ -14,6 +14,7 @@ function App() {
     <Routes>
       {/* private routes */}
       <Route path="app" element={<TodosPage />} />
+      <Route path="app/:id" element={<TodosPage />} />
 
       {/* public routes */}
       <Route path="/" element={<NavbarFooterLayout />}>

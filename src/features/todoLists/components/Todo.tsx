@@ -3,7 +3,23 @@ import DeleteIcon from "../../../assets/icons/delete-icon.svg";
 import Modal from "../../../components/modal/Modal";
 import { useRef } from "react";
 
-const Todo = () => {
+import format from "date-fns/format";
+
+interface TodoProps {
+  id: number;
+  title: string;
+  description: string;
+  dueDateTime: string;
+  completed: boolean;
+}
+
+const Todo = ({
+  id,
+  title,
+  description,
+  dueDateTime,
+  completed,
+}: TodoProps) => {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const handleOpenModal = () => {
@@ -13,15 +29,17 @@ const Todo = () => {
   return (
     <>
       <div className="flex items-center">
-        <input type="checkbox" className="checkbox" />
+        <input type="checkbox" className="checkbox" checked={completed} />
 
         <label className="ml-4">
-          <span className="text-lg font-medium">Finish project proposal</span>
+          <span className="text-lg font-medium">{title}</span>
         </label>
       </div>
 
       <div className="flex items-center justify-between">
-        <span className="text-sm font-light text-gray-400">Due on 4/1/23</span>
+        <span className="text-sm font-light text-gray-400">
+          Due on: {format(new Date(dueDateTime), "MMM dd, yyyy hh:mm a")}
+        </span>
 
         <div>
           <button
@@ -37,14 +55,11 @@ const Todo = () => {
         </div>
       </div>
 
-      <p className="text-sm text-gray-500">
-        Ensure all sections are detailed and reviewed by the team for accuracy
-        and completeness.
-      </p>
+      <p className="text-sm text-gray-500">{description}</p>
 
       <div className="divider"></div>
 
-      <Modal id="editTodo" title="Edit Todo" ref={modalRef}>
+      <Modal id={`editTodo${id}`} title="Edit Todo" ref={modalRef}>
         asd
       </Modal>
     </>

@@ -1,7 +1,15 @@
 import toggleListIcon from "../../../assets/icons/toggle-list-icon.svg";
 import searchIcon from "../../../assets/icons/search-icon.svg";
 
+import { useParams } from "react-router-dom";
+import { useGetTodoLists } from "../api/getTodoLists";
+
 const TodoListAppbar = () => {
+  const { id } = useParams();
+  const { todoLists } = useGetTodoLists();
+
+  const todoList = todoLists?.find((list) => list.id === Number(id));
+
   return (
     <div className="navbar bg-base-100 justify-between">
       <div>
@@ -15,7 +23,7 @@ const TodoListAppbar = () => {
             className="w-5 h-5"
           />
         </label>
-        <p className="text-xl">Name of list</p>
+        <p className="text-xl">{todoList?.title}</p>
       </div>
       <div>
         <button className="btn btn-ghost btn-circle md:hidden">

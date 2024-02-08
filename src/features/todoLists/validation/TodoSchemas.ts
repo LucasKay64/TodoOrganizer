@@ -8,8 +8,9 @@ export const addTodoSchema = yup.object({
     .trim(),
   description: yup
     .string()
+    .required("Description is required")
     .max(255, "Description must not exceed 255 characters")
     .trim(),
-  dueDateTime: yup.date().typeError("Invalid date").nullable(),
+  dueDateTime: yup.date().required().typeError("Invalid date"),
 });
 export type addTodoFormDataType = yup.InferType<typeof addTodoSchema>;

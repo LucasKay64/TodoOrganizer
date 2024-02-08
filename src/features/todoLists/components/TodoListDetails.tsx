@@ -1,8 +1,7 @@
-import { Tabs, Tab } from "../../../components/Tabs/Tabs";
-import Todo from "./Todo";
 import TodoListAppbar from "./TodoListAppbar";
 import Modal from "../../../components/modal/Modal";
 import AddTodoForm from "./AddTodoForm";
+import Todos from "./Todos";
 
 import PlusIconWhite from "../../../assets/icons/plus-icon-white.svg";
 
@@ -20,30 +19,7 @@ const TodoListDetails = () => {
       <TodoListAppbar />
       <div className="divider mt-0"></div>
 
-      <Tabs name="todoStatus">
-        <Tab label="Active">
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-        </Tab>
-        <Tab label="All">
-          <Todo />
-          <Todo />
-          <Todo />
-          <Todo />
-        </Tab>
-        <Tab label="Completed">
-          <Todo />
-          <Todo />
-        </Tab>
-      </Tabs>
+      <Todos />
 
       {/* FAB */}
       <button

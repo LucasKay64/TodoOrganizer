@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { useDeleteTodoList } from "../api/deleteTodoList";
+import { useNavigate } from "react-router-dom";
 
 import listIcon from "../../../assets/icons/list-icon.svg";
 import deleteIcon from "../../../assets/icons/delete-icon.svg";
@@ -12,6 +13,7 @@ interface TodoListsItemProps {
 
 const TodoListsItem = ({ id, title }: TodoListsItemProps) => {
   const { deleteList, isPending } = useDeleteTodoList();
+  const navigate = useNavigate();
 
   const handleDeleteList = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -29,7 +31,7 @@ const TodoListsItem = ({ id, title }: TodoListsItemProps) => {
   }
 
   return (
-    <li onClick={() => console.log("li")}>
+    <li onClick={() => navigate(`/app/${id}`)}>
       <a>
         <img src={listIcon} alt="List Icon" className="w-5 h-5" />
         {title}
