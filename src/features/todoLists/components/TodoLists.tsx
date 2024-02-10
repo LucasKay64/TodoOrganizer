@@ -10,7 +10,7 @@ import { useGetTodoLists } from "../api/getTodoLists";
 import { useRef } from "react";
 
 const TodoLists = () => {
-  const { todoLists, isPending, error } = useGetTodoLists();
+  const { todoLists, isPending, error, isEmpty } = useGetTodoLists();
 
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -38,7 +38,7 @@ const TodoLists = () => {
 
   return (
     <>
-      <ul className="menu w-80 text-base-content">
+      <ul className="menu w-60 md:w-80 text-base-content">
         <h1 className="menu-title flex justify-between">
           Lists
           <button
@@ -53,9 +53,15 @@ const TodoLists = () => {
           </button>
         </h1>
 
-        {todoLists?.map(({ id, title }) => (
-          <TodoListsItem key={id} id={id} title={title} />
-        ))}
+        {isEmpty ? (
+          <p className="text-center">
+            No lists found. Add a new list to get started.
+          </p>
+        ) : (
+          todoLists?.map(({ id, title }) => (
+            <TodoListsItem key={id} id={id} title={title} />
+          ))
+        )}
       </ul>
 
       <Modal id="addTotoList" title="Add a new Todo list" ref={modalRef}>

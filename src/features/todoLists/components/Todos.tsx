@@ -17,7 +17,7 @@ const Todos = () => {
   const { allTodos, activeTodos, completedTodos, isPending, error } =
     useGetTodos(Number(id));
 
-  const filterTodos = (todos?: TodoType[]) => {
+  const filterTodosBySearchTerm = (todos?: TodoType[]) => {
     return todos?.filter((todo) => {
       return todo.title.toLowerCase().includes(searchTerm.toLowerCase());
     });
@@ -59,44 +59,62 @@ const Todos = () => {
 
       <Tabs name="todoStatus">
         <Tab defaultSelected label="Active">
-          {filterTodos(activeTodos)?.map(
-            ({ id, title, description, due_date_time, completed }) => (
-              <Todo
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                dueDateTime={due_date_time}
-                completed={completed}
-              />
+          {activeTodos?.length === 0 ? (
+            <p className="text-center">
+              No active todos yet. Add a new todo to get started.
+            </p>
+          ) : (
+            filterTodosBySearchTerm(activeTodos)?.map(
+              ({ id, title, description, due_date_time, completed }) => (
+                <Todo
+                  key={id}
+                  id={id}
+                  title={title}
+                  description={description}
+                  dueDateTime={due_date_time}
+                  completed={completed}
+                />
+              )
             )
           )}
         </Tab>
         <Tab label="All">
-          {filterTodos(allTodos)?.map(
-            ({ id, title, description, due_date_time, completed }) => (
-              <Todo
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                dueDateTime={due_date_time}
-                completed={completed}
-              />
+          {allTodos?.length === 0 ? (
+            <p className="text-center">
+              No todos found. Add a new todo to get started.
+            </p>
+          ) : (
+            filterTodosBySearchTerm(allTodos)?.map(
+              ({ id, title, description, due_date_time, completed }) => (
+                <Todo
+                  key={id}
+                  id={id}
+                  title={title}
+                  description={description}
+                  dueDateTime={due_date_time}
+                  completed={completed}
+                />
+              )
             )
           )}
         </Tab>
         <Tab label="Completed">
-          {filterTodos(completedTodos)?.map(
-            ({ id, title, description, due_date_time, completed }) => (
-              <Todo
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                dueDateTime={due_date_time}
-                completed={completed}
-              />
+          {completedTodos?.length === 0 ? (
+            <p className="text-center">
+              No completed todos yet. Check an active todo.
+            </p>
+          ) : (
+            filterTodosBySearchTerm(completedTodos)?.map(
+              ({ id, title, description, due_date_time, completed }) => (
+                <Todo
+                  key={id}
+                  id={id}
+                  title={title}
+                  description={description}
+                  dueDateTime={due_date_time}
+                  completed={completed}
+                />
+              )
             )
           )}
         </Tab>

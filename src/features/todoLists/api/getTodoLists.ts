@@ -25,5 +25,7 @@ export const useGetTodoLists = () => {
     queryFn: getTodoLists,
   });
 
-  return { todoLists, isPending, error };
+  const isEmpty = todoLists?.length === 0;
+
+  return { todoLists, isPending, error, isEmpty };
 };

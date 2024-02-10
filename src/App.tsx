@@ -9,12 +9,17 @@ import TodosPage from "./pages/todosPage/TodosPage";
 
 import NavbarFooterLayout from "./layouts/navbarFooterLayout/NavbarFooterLayout";
 
+import TodoListDetails from "./features/todoLists/components/TodoListDetails";
+import SelectListMessage from "./features/todoLists/components/SelectListMessage";
+
 function App() {
   return (
     <Routes>
       {/* private routes */}
-      <Route path="app" element={<TodosPage />} />
-      <Route path="app/:id" element={<TodosPage />} />
+      <Route path="app" element={<TodosPage />}>
+        <Route index element={<SelectListMessage />} />
+        <Route path=":id" element={<TodoListDetails />} />
+      </Route>
 
       {/* public routes */}
       <Route path="/" element={<NavbarFooterLayout />}>

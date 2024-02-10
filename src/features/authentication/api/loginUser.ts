@@ -37,7 +37,7 @@ export const useLoginUser = () => {
     onSuccess: (response) => {
       localStorage.setItem("api_token", response.data.access_token);
       toast.success("Logged in successfully!");
-      navigate("/");
+      navigate("/app");
     },
   });
 

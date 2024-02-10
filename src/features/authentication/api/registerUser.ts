@@ -37,7 +37,7 @@ export const useRegisterUser = () => {
     onSuccess: (response) => {
       localStorage.setItem("api_token", response.data.access_token);
       toast.success("Account created successfully!");
-      navigate("/");
+      navigate("/app");
     },
   });
 

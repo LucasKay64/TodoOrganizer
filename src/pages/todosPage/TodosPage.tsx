@@ -1,13 +1,14 @@
 import TodoLists from "../../features/todoLists/components/TodoLists";
-import TodoListDetails from "../../features/todoLists/components/TodoListDetails";
+
+import { Outlet } from "react-router-dom";
 
 const TodosPage = () => {
   return (
-    <div className="drawer md:drawer-open">
+    <div className="drawer md:drawer-open h-screen">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col md:px-5">
-        <TodoListDetails />
+        <Outlet />
       </div>
 
       <div className="drawer-side border-r-2">

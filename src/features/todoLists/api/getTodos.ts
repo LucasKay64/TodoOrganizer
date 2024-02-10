@@ -6,7 +6,7 @@ export const getTodos = async (todoListId: number) => {
   const { data } = await supabase.get<Todo[]>(
     `${
       import.meta.env.VITE_API_URL
-    }/Todos?select=id,title,description,due_date_time,completed&list_id=eq.${todoListId}`,
+    }/Todos?select=id,title,description,due_date_time,completed&list_id=eq.${todoListId}&order=due_date_time.asc`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("api_token")}`,

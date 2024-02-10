@@ -59,7 +59,7 @@ const Todo = ({
         <input
           type="checkbox"
           className="checkbox"
-          defaultChecked={completed}
+          checked={completed}
           onChange={handleToggleTodoCheck}
         />
 
