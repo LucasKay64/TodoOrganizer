@@ -1,6 +1,11 @@
 import EditIcon from "../../../assets/icons/edit-icon.svg";
 import DeleteIcon from "../../../assets/icons/delete-icon.svg";
 import Modal from "../../../components/modal/Modal";
+
+import EditTodoForm from "./EditTodoForm";
+
+import { useDeleteTodo } from "../api/deleteTodo";
+import { useEditTodo } from "../api/editTodo";
 import { useRef } from "react";
 
 import format from "date-fns/format";
@@ -20,16 +25,43 @@ const Todo = ({
   dueDateTime,
   completed,
 }: TodoProps) => {
+  const { deleteTodo, isPending } = useDeleteTodo();
+  const { editTodo, isPending: isEditPending } = useEditTodo();
+
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const handleOpenModal = () => {
     modalRef.current?.showModal();
   };
 
+  const handleDeleteTodo = () => {
+    deleteTodo(id);
+  };
+
+  const handleToggleTodoCheck = () => {
+    editTodo({
+      id,
+      completed: !completed,
+    });
+  };
+
+  if (isPending || isEditPending) {
+    return (
+      <div className="flex justify-center items-center">
+        <span className="loading loading-spinner"></span>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex items-center">
-        <input type="checkbox" className="checkbox" checked={completed} />
+        <input
+          type="checkbox"
+          className="checkbox"
+          defaultChecked={completed}
+          onChange={handleToggleTodoCheck}
+        />
 
         <label className="ml-4">
           <span className="text-lg font-medium">{title}</span>
@@ -49,7 +81,10 @@ const Todo = ({
             <img src={EditIcon} alt="Edit Icon" className="w-5 h-5" />
           </button>
 
-          <button className="btn btn-ghost btn-circle">
+          <button
+            className="btn btn-ghost btn-circle"
+            onClick={handleDeleteTodo}
+          >
             <img src={DeleteIcon} alt="Delete icon" className="w-5 h-5" />
           </button>
         </div>
@@ -60,7 +95,7 @@ const Todo = ({
       <div className="divider"></div>
 
       <Modal id={`editTodo${id}`} title="Edit Todo" ref={modalRef}>
-        asd
+        <EditTodoForm todoId={id} />
       </Modal>
     </>
   );
