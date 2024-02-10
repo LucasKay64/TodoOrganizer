@@ -10,7 +10,7 @@ const TodoListAppbar = () => {
   const todoList = todoLists?.find((list) => list.id === Number(id));
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar">
       <div>
         <label
           htmlFor="my-drawer-2"

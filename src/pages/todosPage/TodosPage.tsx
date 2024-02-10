@@ -7,7 +7,7 @@ const TodosPage = () => {
     <div className="drawer md:drawer-open h-screen">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-      <div className="drawer-content flex flex-col md:px-5">
+      <div className="drawer-content flex flex-col md:px-5 bg-hero-section bg-cover">
         <Outlet />
       </div>
 

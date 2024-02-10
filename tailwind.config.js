@@ -10,19 +10,19 @@ export default {
       },
     },
   },
-  plugins: [daisyui],
 
-  // daisyui: {
-  //   themes: [
-  //     {
-  //       mytheme: {
-  //         primary: "#068fff",
-  //         info: "#67e8f9",
-  //         success: "#4bb543",
-  //         warning: "#facc15",
-  //         error: "#e11d48",
-  //       },
-  //     },
-  //   ],
-  // },
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#068FFF",
+          neutral: "#b0b0b0",
+          "base-100": "#ffffff",
+          error: "#e11d48",
+        },
+      },
+    ],
+  },
+
+  plugins: [daisyui],
 };
