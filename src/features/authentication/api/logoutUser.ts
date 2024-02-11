@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { removeApiToken } from "../../../utils/utils";
 import { getApiToken } from "../../../utils/utils";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const logoutUser = async () => {
   return supabase.post(
@@ -20,6 +21,8 @@ export const logoutUser = async () => {
 
 export const useLogoutUser = () => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const { mutate: logout, isPending } = useMutation({
     mutationFn: logoutUser,
@@ -37,6 +40,7 @@ export const useLogoutUser = () => {
       removeApiToken();
       toast.success("Logged out successfully!");
       navigate("/");
+      queryClient.setQueryData(["user"], null);
     },
   });
 

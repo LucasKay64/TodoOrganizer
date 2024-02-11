@@ -6,6 +6,7 @@ import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { setApiToken } from "../../../utils/utils";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const loginUserWithEmailAndPassword = async (
   credentials: SignInWithPasswordCredentials
@@ -18,6 +19,8 @@ export const loginUserWithEmailAndPassword = async (
 
 export const useLoginUser = () => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const {
     mutate: login,
@@ -39,6 +42,7 @@ export const useLoginUser = () => {
       setApiToken(response.data.access_token);
       toast.success("Logged in successfully!");
       navigate("/app");
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 

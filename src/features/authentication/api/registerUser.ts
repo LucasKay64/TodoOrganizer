@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { setApiToken } from "../../../utils/utils";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const registerUserWithEmailAndPassword = async (
   credentials: SignUpWithPasswordCredentials
@@ -18,6 +19,8 @@ export const registerUserWithEmailAndPassword = async (
 
 export const useRegisterUser = () => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const {
     mutate: register,
@@ -39,6 +42,7 @@ export const useRegisterUser = () => {
       setApiToken(response.data.access_token);
       toast.success("Account created successfully!");
       navigate("/app");
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 
