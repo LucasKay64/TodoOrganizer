@@ -6,7 +6,7 @@ import FormDateTimeField from "../../../components/formDateTimeField/FormDateTim
 import { addTodoSchema, addTodoFormDataType } from "../validation/TodoSchemas";
 
 import { useEditTodo } from "../api/editTodo";
-import { useGetTodos } from "../api/getTodos";
+import { useSelectTodoById } from "../api/getTodos";
 import { useParams } from "react-router-dom";
 
 interface EditTodoFormProps {
@@ -14,11 +14,9 @@ interface EditTodoFormProps {
 }
 
 const EditTodoForm = ({ todoId }: EditTodoFormProps) => {
-  const { id } = useParams();
-  const { allTodos } = useGetTodos(Number(id));
+  const { listId } = useParams();
+  const todo = useSelectTodoById(todoId, Number(listId));
   const { editTodo, isPending } = useEditTodo();
-
-  const todo = allTodos?.find((todo) => todo.id === todoId);
 
   const handleEditTodo = ({
     title,

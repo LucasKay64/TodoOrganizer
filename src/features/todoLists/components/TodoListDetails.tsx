@@ -5,14 +5,10 @@ import Todos from "./Todos";
 
 import PlusIconWhite from "../../../assets/icons/plus-icon-white.svg";
 
-import { useRef } from "react";
+import { useModal } from "../../../hooks/useModal";
 
 const TodoListDetails = () => {
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  const handleOpenModal = () => {
-    modalRef.current?.showModal();
-  };
+  const { modalRef, handleOpenModal } = useModal();
 
   return (
     <>

@@ -9,7 +9,7 @@ import { useCreateTodo } from "../api/createTodo";
 import { useParams } from "react-router-dom";
 
 const AddTodoForm = () => {
-  const { id } = useParams();
+  const { listId } = useParams();
   const { createTodo, isPending } = useCreateTodo();
 
   const handleAddTodo = ({
@@ -21,7 +21,7 @@ const AddTodoForm = () => {
       title,
       description,
       dueDateTime: dueDateTime.toISOString(),
-      todoListId: Number(id),
+      todoListId: Number(listId),
     });
   };
 

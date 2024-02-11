@@ -1,6 +1,6 @@
 import searchIcon from "../../../assets/icons/search-icon.svg";
 
-import { Tabs, Tab } from "../../../components/Tabs/Tabs";
+import { Tabs, Tab } from "../../../components/tabs/Tabs";
 import Todo from "./Todo";
 import { Todo as TodoType } from "../types/Todo";
 
@@ -13,9 +13,9 @@ import { useState } from "react";
 const Todos = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { id } = useParams();
+  const { listId } = useParams();
   const { allTodos, activeTodos, completedTodos, isPending, error } =
-    useGetTodos(Number(id));
+    useGetTodos(Number(listId));
 
   const filterTodosBySearchTerm = (todos?: TodoType[]) => {
     return todos?.filter((todo) => {

@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { setApiToken } from "../../../utils/utils";
 
 export const loginUserWithEmailAndPassword = async (
   credentials: SignInWithPasswordCredentials
@@ -35,7 +36,7 @@ export const useLoginUser = () => {
       }
     },
     onSuccess: (response) => {
-      localStorage.setItem("api_token", response.data.access_token);
+      setApiToken(response.data.access_token);
       toast.success("Logged in successfully!");
       navigate("/app");
     },

@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { useGetTodoLists } from "../api/getTodoLists";
 
 const TodoListAppbar = () => {
-  const { id } = useParams();
+  const { listId } = useParams();
   const { todoLists } = useGetTodoLists();
 
-  const todoList = todoLists?.find((list) => list.id === Number(id));
+  const todoList = todoLists?.find((list) => list.id === Number(listId));
 
   return (
     <div className="navbar">

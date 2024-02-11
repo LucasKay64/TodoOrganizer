@@ -2,32 +2,27 @@ import supabase from "../../../http/supabase";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { removeApiToken } from "../../../utils/utils";
 import { getApiToken } from "../../../utils/utils";
 
-export const createTodoList = async (title: string) => {
+export const logoutUser = async () => {
   return supabase.post(
-    `${import.meta.env.VITE_API_URL}/TodoLists`,
-    { title: title },
+    `${import.meta.env.VITE_AUTH_URL}/logout`,
+    {},
     {
       headers: {
         Authorization: `Bearer ${getApiToken()}`,
-        Prefer: "return=minimal",
       },
     }
   );
 };
 
-export const useCreateTodoList = () => {
-  const queryClient = useQueryClient();
+export const useLogoutUser = () => {
+  const navigate = useNavigate();
 
-  const {
-    mutate: createList,
-    isPending,
-    isSuccess,
-    isError,
-  } = useMutation({
-    mutationFn: createTodoList,
+  const { mutate: logout, isPending } = useMutation({
+    mutationFn: logoutUser,
     onError: (error: Error | AxiosError) => {
       if (axios.isAxiosError(error)) {
         toast.error(
@@ -39,10 +34,11 @@ export const useCreateTodoList = () => {
       }
     },
     onSuccess: () => {
-      toast.success("Todo list created successfully!");
-      queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+      removeApiToken();
+      toast.success("Logged out successfully!");
+      navigate("/");
     },
   });
 
-  return { createList, isPending, isSuccess, isError };
+  return { logout, isPending };
 };

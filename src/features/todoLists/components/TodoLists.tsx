@@ -7,16 +7,12 @@ import ErrorMessage from "../../../components/errorMessage/ErrorMessage";
 
 import { useGetTodoLists } from "../api/getTodoLists";
 
-import { useRef } from "react";
+import { useModal } from "../../../hooks/useModal";
 
 const TodoLists = () => {
   const { todoLists, isPending, error, isEmpty } = useGetTodoLists();
 
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  const handleOpenModal = () => {
-    modalRef.current?.showModal();
-  };
+  const { modalRef, handleOpenModal } = useModal();
 
   if (isPending)
     return (
@@ -38,7 +34,7 @@ const TodoLists = () => {
 
   return (
     <>
-      <ul className="menu w-60 md:w-80 text-base-content">
+      <ul className="menu w-60 md:w-80 text-base-content flex-nowrap h-full overflow-y-scroll">
         <h1 className="menu-title flex justify-between">
           Lists
           <button

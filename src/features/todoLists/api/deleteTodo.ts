@@ -3,11 +3,12 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { getApiToken } from "../../../utils/utils";
 
 export const deleteTodoItem = async (id: number) => {
   return supabase.delete(`${import.meta.env.VITE_API_URL}/Todos?id=eq.${id}`, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("api_token")}`,
+      Authorization: `Bearer ${getApiToken()}`,
     },
   });
 };

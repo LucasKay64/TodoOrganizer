@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { getApiToken } from "../../../utils/utils";
 
 interface EditTodoItemArgs {
   id: number;
@@ -20,7 +21,7 @@ export const editTodoItem = async ({ id, ...args }: EditTodoItemArgs) => {
     },
     {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("api_token")}`,
+        Authorization: `Bearer ${getApiToken()}`,
         Prefer: "return=minimal",
       },
     }

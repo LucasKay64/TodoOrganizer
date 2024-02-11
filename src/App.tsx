@@ -18,7 +18,7 @@ function App() {
       {/* private routes */}
       <Route path="app" element={<TodosPage />}>
         <Route index element={<SelectListMessage />} />
-        <Route path=":id" element={<TodoListDetails />} />
+        <Route path=":listId" element={<TodoListDetails />} />
       </Route>
 
       {/* public routes */}

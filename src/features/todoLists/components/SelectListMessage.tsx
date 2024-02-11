@@ -3,7 +3,7 @@ import toggleListIcon from "../../../assets/icons/toggle-list-icon.svg";
 const SelectListMessage = () => {
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar">
         <div>
           <label
             htmlFor="my-drawer-2"

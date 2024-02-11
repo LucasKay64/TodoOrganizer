@@ -1,4 +1,4 @@
-import TodoLists from "../../features/todoLists/components/TodoLists";
+import TodosSidebarContent from "../../features/todoLists/components/TodosSidebarContent";
 
 import { Outlet } from "react-router-dom";
 
@@ -17,8 +17,8 @@ const TodosPage = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="min-h-full bg-base-100">
-          <TodoLists />
+        <div className="h-full bg-base-100 flex flex-col">
+          <TodosSidebarContent />
         </div>
       </div>
     </div>

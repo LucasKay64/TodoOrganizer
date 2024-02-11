@@ -6,7 +6,7 @@ import EditTodoForm from "./EditTodoForm";
 
 import { useDeleteTodo } from "../api/deleteTodo";
 import { useEditTodo } from "../api/editTodo";
-import { useRef } from "react";
+import { useModal } from "../../../hooks/useModal";
 
 import format from "date-fns/format";
 
@@ -28,11 +28,7 @@ const Todo = ({
   const { deleteTodo, isPending } = useDeleteTodo();
   const { editTodo, isPending: isEditPending } = useEditTodo();
 
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  const handleOpenModal = () => {
-    modalRef.current?.showModal();
-  };
+  const { modalRef, handleOpenModal } = useModal();
 
   const handleDeleteTodo = () => {
     deleteTodo(id);

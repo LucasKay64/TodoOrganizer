@@ -14,7 +14,7 @@ interface TodoListsItemProps {
 const TodoListsItem = ({ id, title }: TodoListsItemProps) => {
   const { deleteList, isPending } = useDeleteTodoList();
   const navigate = useNavigate();
-  const { id: selectedListId } = useParams();
+  const { listId } = useParams();
 
   const handleDeleteList = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -22,7 +22,7 @@ const TodoListsItem = ({ id, title }: TodoListsItemProps) => {
     e.stopPropagation();
     deleteList(id);
 
-    if (id === Number(selectedListId)) {
+    if (id === Number(listId)) {
       navigate("/app");
     }
   };
