@@ -1,7 +1,6 @@
 import searchIcon from "../../../assets/icons/search-icon.svg";
 
-// import { Tabs, Tab } from "../../../components/tabs/Tabs";
-import { Tabs, Tab } from "../../../components/tabs/Tabs";
+import { Tabs, Tab } from "../../../components/Tabs/Tabs";
 import Todo from "./Todo";
 import { Todo as TodoType } from "../types/Todo";
 
